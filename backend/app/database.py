@@ -104,4 +104,168 @@ async def init_db():
                 api_access=limits["api_access"],
             )
             session.add(sub)
+            await session.flush()
+
+            # Seed sample project
+            from datetime import datetime, timezone, timedelta
+            from app.models.project import Project, ProjectStatus
+            from app.models.task import Task, TaskStatus, TaskPriority
+            from app.models.incident import Incident, IncidentSeverity, IncidentCategory, IncidentStatus
+            from app.models.audit_log import AuditLog, Notification, NotificationType
+
+            project = Project(
+                organization_id=org.id,
+                name="Core Platform Modernization",
+                description="Zero-downtime microservices cutover, multi-region database migration, and Redis cluster scaling.",
+                color="#6366F1",
+                status=ProjectStatus.ACTIVE,
+            )
+            session.add(project)
+            await session.flush()
+
+            # Seed tasks across Kanban columns
+            sample_tasks = [
+                Task(
+                    organization_id=org.id,
+                    project_id=project.id,
+                    title="Implement tenant-scoped Redis rate limiting middleware",
+                    description="Token bucket rate limiter per API key and JWT tenant id to prevent tenant noisy-neighbor issues.",
+                    priority=TaskPriority.HIGH,
+                    status=TaskStatus.TODO,
+                    estimated_hours=6,
+                    assignee_id=admin_user.id,
+                ),
+                Task(
+                    organization_id=org.id,
+                    project_id=project.id,
+                    title="Configure pgvector RLS embeddings pipeline",
+                    description="Enable pgvector extension with tenant isolation policies on document embeddings vector store.",
+                    priority=TaskPriority.CRITICAL,
+                    status=TaskStatus.IN_PROGRESS,
+                    estimated_hours=8,
+                    assignee_id=admin_user.id,
+                ),
+                Task(
+                    organization_id=org.id,
+                    project_id=project.id,
+                    title="Setup Prometheus FastAPI instrumentator and Grafana dashboard",
+                    description="Export latency histograms, request throughput, and Redis connection pool utilization metrics.",
+                    priority=TaskPriority.MEDIUM,
+                    status=TaskStatus.REVIEW,
+                    estimated_hours=4,
+                    assignee_id=admin_user.id,
+                ),
+                Task(
+                    organization_id=org.id,
+                    project_id=project.id,
+                    title="Deploy Docker Compose multi-service architecture",
+                    description="Containerize FastAPI, React 19 SPA, PostgreSQL 16, Redis 7, and health check probes.",
+                    priority=TaskPriority.LOW,
+                    status=TaskStatus.DONE,
+                    estimated_hours=5,
+                    assignee_id=admin_user.id,
+                ),
+            ]
+            session.add_all(sample_tasks)
+
+            # Seed sample incidents with SLA
+            now = datetime.now(timezone.utc)
+            incidents = [
+                Incident(
+                    organization_id=org.id,
+                    incident_number="INC-2026-00101",
+                    title="Checkout API 504 Gateway Timeouts under Flash Traffic",
+                    description="Postgres connection pool saturation on rds-prod-cluster. 14% failure rate on checkout requests.",
+                    severity=IncidentSeverity.CRITICAL,
+                    category=IncidentCategory.DATABASE,
+                    status=IncidentStatus.INVESTIGATING,
+                    reporter_id=admin_user.id,
+                    assignee_id=admin_user.id,
+                    sla_response_due=now + timedelta(minutes=15),
+                    sla_resolution_due=now + timedelta(hours=2),
+                ),
+                Incident(
+                    organization_id=org.id,
+                    incident_number="INC-2026-00102",
+                    title="Payment Gateway Webhook SSL Certificate Expiration Warning",
+                    description="Stripe webhook endpoint TLS cert expiring in 72 hours. Renewal automated script failed.",
+                    severity=IncidentSeverity.HIGH,
+                    category=IncidentCategory.SECURITY,
+                    status=IncidentStatus.IDENTIFIED,
+                    reporter_id=admin_user.id,
+                    assignee_id=admin_user.id,
+                    sla_response_due=now + timedelta(minutes=30),
+                    sla_resolution_due=now + timedelta(hours=4),
+                ),
+                Incident(
+                    organization_id=org.id,
+                    incident_number="INC-2026-00103",
+                    title="CDN Edge Cache Invalidation Delay in AP-South Region",
+                    description="Asset updates on static storage taking up to 45 minutes to propagate to regional edge points.",
+                    severity=IncidentSeverity.MEDIUM,
+                    category=IncidentCategory.NETWORK,
+                    status=IncidentStatus.RESOLVED,
+                    reporter_id=admin_user.id,
+                    assignee_id=admin_user.id,
+                    sla_response_due=now - timedelta(hours=3),
+                    sla_resolution_due=now - timedelta(hours=1),
+                    sla_response_met=True,
+                    sla_resolution_met=True,
+                    resolution_notes="Flushed edge POP caches via CloudFront API and adjusted TTL header to 300s.",
+                ),
+            ]
+            session.add_all(incidents)
+
+            # Seed notifications
+            notifications = [
+                Notification(
+                    organization_id=org.id,
+                    user_id=admin_user.id,
+                    title="Critical Incident INC-2026-00101 Raised",
+                    message="Checkout API 504 Gateway Timeouts require immediate triage. SLA response timer active.",
+                    type=NotificationType.INCIDENT,
+                    is_read=False,
+                ),
+                Notification(
+                    organization_id=org.id,
+                    user_id=admin_user.id,
+                    title="Task Assigned: pgvector RLS Pipeline",
+                    message="You have been assigned as lead engineer on 'Configure pgvector RLS embeddings pipeline'.",
+                    type=NotificationType.TASK,
+                    is_read=False,
+                ),
+                Notification(
+                    organization_id=org.id,
+                    user_id=admin_user.id,
+                    title="SLA Met: CDN Edge Cache Invalidation",
+                    message="Incident INC-2026-00103 successfully resolved within SLA window (94.2% operational health).",
+                    type=NotificationType.SLA,
+                    is_read=True,
+                ),
+            ]
+            session.add_all(notifications)
+
+            # Seed audit logs
+            audit_logs = [
+                AuditLog(
+                    organization_id=org.id,
+                    user_id=admin_user.id,
+                    action="created",
+                    resource_type="project",
+                    resource_id=project.id,
+                    new_values={"name": "Core Platform Modernization", "color": "#6366F1"},
+                    ip_address="192.168.1.100",
+                ),
+                AuditLog(
+                    organization_id=org.id,
+                    user_id=admin_user.id,
+                    action="created",
+                    resource_type="incident",
+                    resource_id=incidents[0].id if incidents else project.id,
+                    new_values={"number": "INC-2026-00101", "severity": "P1_CRITICAL"},
+                    ip_address="192.168.1.100",
+                ),
+            ]
+            session.add_all(audit_logs)
+
             await session.commit()

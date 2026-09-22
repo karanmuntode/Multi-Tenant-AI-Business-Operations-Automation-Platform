@@ -15,6 +15,10 @@ import DashboardPage from './features/dashboard/DashboardPage';
 import UsersPage from './features/users/UsersPage';
 import SettingsPage from './features/settings/SettingsPage';
 import AICopilotPage from './features/ai/AICopilotPage';
+import ProjectsPage from './features/projects/ProjectsPage';
+import IncidentsPage from './features/incidents/IncidentsPage';
+import AuditLogsPage from './features/audit/AuditLogsPage';
+import NotificationsPage from './features/notifications/NotificationsPage';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -133,13 +137,15 @@ export default function App() {
             {/* AI Assistant & Copilot Hub */}
             <Route path="/ai" element={<AICopilotPage />} />
 
-            {/* Phase 2+ Placeholders */}
-            <Route path="/projects" element={<PlaceholderPage title="Projects" subtitle="Manage your team's projects and tasks" icon="📁" />} />
-            <Route path="/incidents" element={<PlaceholderPage title="Incidents" subtitle="Track and resolve operational incidents" icon="🚨" />} />
+            {/* Core Operations Modules */}
+            <Route path="/projects" element={<ProjectsPage />} />
+            <Route path="/incidents" element={<IncidentsPage />} />
+            <Route path="/notifications" element={<NotificationsPage />} />
+            <Route path="/audit-logs" element={<AuditLogsPage />} />
+
+            {/* Next Milestone Placeholders */}
             <Route path="/approvals" element={<PlaceholderPage title="Approvals" subtitle="Review and approve AI agent actions" icon="✅" />} />
             <Route path="/analytics" element={<PlaceholderPage title="Analytics" subtitle="Deep insights into your operations" icon="📊" />} />
-            <Route path="/notifications" element={<PlaceholderPage title="Notifications" subtitle="Stay updated on important events" icon="🔔" />} />
-            <Route path="/audit-logs" element={<PlaceholderPage title="Audit Logs" subtitle="Complete activity trail" icon="📋" />} />
             <Route path="/workflows" element={<PlaceholderPage title="Workflows" subtitle="Automate recurring operations" icon="⚡" />} />
           </Route>
 

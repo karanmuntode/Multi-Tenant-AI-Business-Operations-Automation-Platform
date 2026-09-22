@@ -141,6 +141,20 @@ export const projectsAPI = {
     api.patch(`/projects/tasks/${taskId}/status`, { status }),
 };
 
+// ── Audit Logs API ──────────────────────────
+export const auditLogsAPI = {
+  list: (params?: { resource_type?: string; action?: string; page?: number; per_page?: number }) =>
+    api.get('/audit-logs', { params }),
+};
+
+// ── Notifications API ───────────────────────
+export const notificationsAPI = {
+  list: (params?: { unread_only?: boolean; page?: number; per_page?: number }) =>
+    api.get('/notifications', { params }),
+  markAsRead: (id: string) => api.patch(`/notifications/${id}/read`),
+  markAllAsRead: () => api.post('/notifications/read-all'),
+};
+
 // ── Health API ──────────────────────────────
 export const healthAPI = {
   check: () => api.get('/health'),
