@@ -11,7 +11,6 @@ asyncpg==0.30.0
 psycopg2-binary==2.9.10
 aiosqlite==0.21.0
 alembic==1.15.2
-pgvector==0.3.6
 
 # ── Authentication ───────────────────────────
 python-jose[cryptography]==3.4.0
@@ -22,33 +21,16 @@ bcrypt==4.3.0
 redis==5.3.0
 celery[redis]==5.5.2
 
-# ── AI / LLM ────────────────────────────────
-google-genai==1.14.0
-langgraph==0.4.1
-langchain-core==0.3.56
-langchain-google-genai==2.1.5
-
-# ── RAG / Document Processing ────────────────
-pypdf2==3.0.1
-python-docx==1.1.2
-unstructured==0.17.2
-
-# ── HTTP / Utils ─────────────────────────────
+# ── HTTP & Async Clients ─────────────────────
 httpx==0.28.1
 python-dateutil==2.9.0.post0
-emails==0.6
-
-# ── AWS ──────────────────────────────────────
-boto3==1.38.34
 
 # ── Monitoring ───────────────────────────────
 prometheus-fastapi-instrumentator==7.1.0
-sentry-sdk[fastapi]==2.22.0
 
 # ── Testing ──────────────────────────────────
 pytest==8.4.0
 pytest-asyncio==1.0.0
-httpx==0.28.1
 
 # ── Code Quality ─────────────────────────────
 ruff==0.11.13

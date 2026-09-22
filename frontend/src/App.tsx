@@ -82,32 +82,6 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }
 
-/* ── Placeholder Pages (Phase 2+) ──────────── */
-function PlaceholderPage({ title, subtitle, icon }: { title: string; subtitle: string; icon: string }) {
-  return (
-    <div>
-      <div className="page-header">
-        <div>
-          <h1 className="page-title">{title}</h1>
-          <p className="page-subtitle">{subtitle}</p>
-        </div>
-      </div>
-      <div className="glass-card" style={{ padding: '80px 40px', textAlign: 'center' }}>
-        <div style={{ fontSize: '48px', marginBottom: '16px' }}>{icon}</div>
-        <h2 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '8px' }}>
-          Coming in Phase 2
-        </h2>
-        <p style={{ fontSize: '14px', color: 'var(--text-secondary)', maxWidth: '400px', margin: '0 auto' }}>
-          This feature is part of the next development phase. The backend APIs and database models are already in place.
-        </p>
-        <div style={{ marginTop: '20px', display: 'flex', gap: '8px', justifyContent: 'center' }}>
-          <span className="badge badge-primary">Backend Ready</span>
-          <span className="badge badge-warning">Frontend In Progress</span>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 /* ── App Component ─────────────────────────── */
 export default function App() {
