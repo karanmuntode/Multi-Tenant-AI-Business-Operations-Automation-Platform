@@ -117,6 +117,7 @@ export const aiAPI = {
     api.post('/ai/triage', data),
   chat: (data: { message: string }) => api.post('/ai/chat', data),
   decompose: (data: { goal: string }) => api.post('/ai/decompose', data),
+  executeWorkflow: (data: { objective: string }) => api.post('/ai/agent/execute', data),
 };
 
 // ── Incidents API ───────────────────────────
@@ -153,6 +154,14 @@ export const notificationsAPI = {
     api.get('/notifications', { params }),
   markAsRead: (id: string) => api.patch(`/notifications/${id}/read`),
   markAllAsRead: () => api.post('/notifications/read-all'),
+};
+
+// ── Approvals API ───────────────────────────
+export const approvalsAPI = {
+  list: (params?: { status?: string; risk_level?: string; page?: number; per_page?: number }) =>
+    api.get('/approvals', { params }),
+  approve: (id: string) => api.post(`/approvals/${id}/approve`),
+  reject: (id: string, reason: string) => api.post(`/approvals/${id}/reject`, { reason }),
 };
 
 // ── Health API ──────────────────────────────

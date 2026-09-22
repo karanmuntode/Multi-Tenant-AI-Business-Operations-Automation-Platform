@@ -19,6 +19,7 @@ import ProjectsPage from './features/projects/ProjectsPage';
 import IncidentsPage from './features/incidents/IncidentsPage';
 import AuditLogsPage from './features/audit/AuditLogsPage';
 import NotificationsPage from './features/notifications/NotificationsPage';
+import ApprovalsPage from './features/approvals/ApprovalsPage';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -142,9 +143,9 @@ export default function App() {
             <Route path="/incidents" element={<IncidentsPage />} />
             <Route path="/notifications" element={<NotificationsPage />} />
             <Route path="/audit-logs" element={<AuditLogsPage />} />
+            <Route path="/approvals" element={<ApprovalsPage />} />
 
             {/* Next Milestone Placeholders */}
-            <Route path="/approvals" element={<PlaceholderPage title="Approvals" subtitle="Review and approve AI agent actions" icon="✅" />} />
             <Route path="/analytics" element={<PlaceholderPage title="Analytics" subtitle="Deep insights into your operations" icon="📊" />} />
             <Route path="/workflows" element={<PlaceholderPage title="Workflows" subtitle="Automate recurring operations" icon="⚡" />} />
           </Route>

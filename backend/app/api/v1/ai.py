@@ -8,8 +8,10 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel, Field
 
 from app.api.deps import get_current_user
+from app.database import get_db
 from app.models.user import User
 from app.services.ai_service import ai_service
+from sqlalchemy.ext.asyncio import AsyncSession
 
 router = APIRouter()
 
@@ -132,3 +134,41 @@ async def decompose_task_endpoint(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"AI Decomposition failed: {str(e)}",
         )
+
+
+class AgentWorkflowRequest(BaseModel):
+    objective: str = Field(
+        ...,
+        min_length=5,
+        max_length=1500,
+        example="Analyze critical delayed incidents, consult escalation SOP, and draft notification to engineering lead",
+    )
+
+
+@router.post("/agent/execute")
+async def execute_agent_workflow(
+    data: AgentWorkflowRequest,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """
+    Execute a collaborative multi-agent operational workflow.
+    Coordinates Orchestrator, Data Agent, RAG Knowledge Agent, Research Agent,
+    and Communication Agent with automated Human-in-the-Loop approval enforcement.
+    """
+    from app.services.agent_orchestrator import agent_orchestrator
+
+    try:
+        result = await agent_orchestrator.execute_objective(
+            objective=data.objective,
+            organization_id=current_user.organization_id,
+            db=db,
+            user_email=current_user.email,
+        )
+        return result
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Multi-Agent execution failed: {str(e)}",
+        )
+

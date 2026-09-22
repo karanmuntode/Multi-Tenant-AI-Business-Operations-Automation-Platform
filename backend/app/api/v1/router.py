@@ -14,6 +14,7 @@ from app.api.v1.incidents import router as incidents_router
 from app.api.v1.projects import router as projects_router
 from app.api.v1.audit_logs import router as audit_logs_router
 from app.api.v1.notifications import router as notifications_router
+from app.api.v1.approvals import router as approvals_router
 
 api_router = APIRouter()
 
@@ -25,4 +26,5 @@ api_router.include_router(incidents_router)
 api_router.include_router(projects_router)
 api_router.include_router(audit_logs_router)
 api_router.include_router(notifications_router)
+api_router.include_router(approvals_router)
 api_router.include_router(ai_router, prefix="/ai", tags=["AI Operations & Copilot"])

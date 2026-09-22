@@ -13,6 +13,9 @@ from app.models.incident import (
 )
 from app.models.subscription import Subscription, PlanTier, PLAN_LIMITS
 from app.models.audit_log import AuditLog, Notification, NotificationType
+from app.models.approval import (
+    ApprovalRequest, ApprovalRiskLevel, ApprovalStatus, ApprovalActionType,
+)
 
 __all__ = [
     "Organization",
@@ -23,4 +26,5 @@ __all__ = [
     "IncidentCategory", "IncidentStatus", "SLAPolicy",
     "Subscription", "PlanTier", "PLAN_LIMITS",
     "AuditLog", "Notification", "NotificationType",
+    "ApprovalRequest", "ApprovalRiskLevel", "ApprovalStatus", "ApprovalActionType",
 ]

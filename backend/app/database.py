@@ -268,4 +268,39 @@ async def init_db():
             ]
             session.add_all(audit_logs)
 
+            # Seed sample Approval Requests
+            from app.models.approval import ApprovalRequest, ApprovalActionType, ApprovalRiskLevel, ApprovalStatus
+            sample_approvals = [
+                ApprovalRequest(
+                    organization_id=org.id,
+                    requested_by_agent="Communication Agent",
+                    action_type=ApprovalActionType.SEND_EMAIL,
+                    risk_level=ApprovalRiskLevel.HIGH,
+                    status=ApprovalStatus.PENDING,
+                    title="Dispatch SLA Outage Advisory to Enterprise Customers",
+                    description="AI Agent drafted an outage status report for incident INC-2026-00101 regarding checkout transaction errors. Human approval required before external customer email dispatch.",
+                    payload={
+                        "recipient": "enterprise-customers@acme-corp.com",
+                        "subject": "OpsPilot Advisory: Temporary Checkout Latency & Mitigation",
+                        "body": "Dear Valued Customer, our SRE team has identified an intermittent latency event affecting checkout processing. Remediation is underway and expected within 30 minutes.",
+                        "triggered_by": "INC-2026-00101",
+                    },
+                ),
+                ApprovalRequest(
+                    organization_id=org.id,
+                    requested_by_agent="Data Agent",
+                    action_type=ApprovalActionType.EXECUTE_RUNBOOK,
+                    risk_level=ApprovalRiskLevel.MEDIUM,
+                    status=ApprovalStatus.PENDING,
+                    title="Scale RDS Connection Pool via PgBouncer Proxy",
+                    description="Data Agent detected connection count exceeding 92% of maximum pool threshold. Proposes applying Runbook RB-DB-04 to scale connection pool limits.",
+                    payload={
+                        "runbook": "RB-DB-04: High Concurrency Connection Saturation",
+                        "target_cluster": "rds-prod-primary",
+                        "parameter_changes": {"max_connections": 400, "pool_mode": "transaction"},
+                    },
+                ),
+            ]
+            session.add_all(sample_approvals)
+
             await session.commit()
