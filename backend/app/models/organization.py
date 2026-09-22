@@ -3,7 +3,7 @@ OpsPilot AI — Organization Model
 The root entity for multi-tenancy. Every company is an Organization.
 """
 
-from sqlalchemy import Boolean, Column, JSON, String, Text, Uuid
+from sqlalchemy import Boolean, Column, JSON, String, Text
 from sqlalchemy.orm import relationship
 
 from app.database import Base

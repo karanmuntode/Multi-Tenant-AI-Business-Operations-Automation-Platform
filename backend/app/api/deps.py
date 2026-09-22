@@ -4,7 +4,6 @@ Dependency injection for authentication, tenant isolation, and database sessions
 These are injected into every API route handler.
 """
 
-from typing import Optional
 from uuid import UUID
 
 from fastapi import Depends, HTTPException, Request, status

@@ -3,11 +3,10 @@ OpsPilot AI — Projects & Tasks API Routes
 Tenant-scoped Project and Kanban Task Management.
 """
 
-from datetime import date
-from typing import List, Optional
+from typing import Optional
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException, Query, status
+from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel, Field
 from sqlalchemy import desc, func, select
 from sqlalchemy.ext.asyncio import AsyncSession

@@ -2,21 +2,16 @@
    Autonomous trigger -> agent -> human-in-the-loop -> execution engine.
    ─────────────────────────────────────────────────── */
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
   Zap,
   Plus,
   Play,
   Clock,
   ShieldAlert,
-  ShieldCheck,
   CheckCircle2,
   Bot,
-  Mail,
-  Database,
-  Terminal,
   ArrowRight,
-  Sparkles,
   ToggleLeft,
   ToggleRight,
   X,

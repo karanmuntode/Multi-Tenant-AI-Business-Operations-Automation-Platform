@@ -5,7 +5,7 @@ Projects belong to an Organization and contain Tasks and Milestones.
 
 import enum
 
-from sqlalchemy import Boolean, Column, Date, Enum, ForeignKey, Integer, String, Text, Uuid
+from sqlalchemy import Column, Date, Enum, ForeignKey, Integer, String, Text, Uuid
 from sqlalchemy.orm import relationship
 
 from app.database import Base

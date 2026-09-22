@@ -2,20 +2,14 @@
    Interactive project operations and task management board.
    ─────────────────────────────────────────────────── */
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
   FolderKanban,
   Plus,
   Clock,
   ArrowRight,
   ArrowLeft,
-  CheckCircle2,
-  AlertCircle,
-  Sparkles,
-  Layers,
-  MoreVertical,
   X,
-  Filter,
 } from 'lucide-react';
 import { projectsAPI } from '../../api/client';
 

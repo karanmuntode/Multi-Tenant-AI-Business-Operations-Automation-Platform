@@ -2,22 +2,17 @@
    Review, verify, and govern AI Agent actions before execution.
    ─────────────────────────────────────────────────── */
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
   ShieldCheck,
   CheckCircle2,
   XCircle,
-  AlertTriangle,
   Mail,
   Database,
   Terminal,
-  Clock,
   Eye,
   X,
-  Filter,
-  Sparkles,
   Bot,
-  ExternalLink,
 } from 'lucide-react';
 import { approvalsAPI } from '../../api/client';
 

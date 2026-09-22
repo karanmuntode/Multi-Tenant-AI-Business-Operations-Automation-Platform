@@ -2,17 +2,10 @@
    SOC-2 / ISO compliance audit trail of all operational events.
    ─────────────────────────────────────────────────── */
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
-  FileText,
   ShieldCheck,
   Search,
-  Filter,
-  User,
-  Calendar,
-  Layers,
-  ArrowUpRight,
-  Database,
 } from 'lucide-react';
 import { auditLogsAPI } from '../../api/client';
 

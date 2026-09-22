@@ -2,21 +2,17 @@
    Enterprise Incident Tracking, SLA Timers, and AI Triage.
    ─────────────────────────────────────────────────── */
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
   AlertTriangle,
   Plus,
   Clock,
-  CheckCircle2,
   ShieldAlert,
   Flame,
-  Filter,
   Sparkles,
   X,
   Search,
-  ExternalLink,
   ChevronRight,
-  Activity,
 } from 'lucide-react';
 import { incidentsAPI, aiAPI } from '../../api/client';
 

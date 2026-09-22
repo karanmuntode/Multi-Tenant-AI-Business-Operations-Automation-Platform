@@ -2,18 +2,15 @@
    Deep dive operational KPI metrics, SLA performance, and velocity.
    ─────────────────────────────────────────────────── */
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
   BarChart3,
   TrendingUp,
   TrendingDown,
   Clock,
   ShieldCheck,
-  Flame,
   Activity,
-  Calendar,
   CheckCircle2,
-  AlertTriangle,
 } from 'lucide-react';
 import {
   AreaChart,

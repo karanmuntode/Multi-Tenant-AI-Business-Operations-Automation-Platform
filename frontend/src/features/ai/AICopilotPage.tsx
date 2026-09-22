@@ -2,7 +2,7 @@
    Interactive AI Operations Center powered by Gemini 2.5.
    ────────────────────────────────────────────── */
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
   Bot,
   Sparkles,
@@ -19,9 +19,6 @@ import {
   Database,
   Network,
   ArrowRight,
-  ExternalLink,
-  FileText,
-  Mail,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { aiAPI } from '../../api/client';

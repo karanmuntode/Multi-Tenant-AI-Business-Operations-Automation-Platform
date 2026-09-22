@@ -4,7 +4,6 @@ Role-Based Access Control with granular permission checks.
 """
 
 from enum import Enum
-from functools import wraps
 from typing import List
 
 from fastapi import HTTPException, status

@@ -5,7 +5,7 @@ Controls feature access per organization based on plan tier.
 
 import enum
 
-from sqlalchemy import Boolean, Column, DateTime, Enum, ForeignKey, Integer, String, Uuid
+from sqlalchemy import Boolean, Column, DateTime, Enum, ForeignKey, Integer, Uuid
 from sqlalchemy.orm import relationship
 
 from app.database import Base

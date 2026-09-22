@@ -2,16 +2,14 @@
    Real-time system, incident, task, and AI copilot notifications.
    ─────────────────────────────────────────────────── */
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Bell,
   CheckCircle2,
-  AlertTriangle,
   Flame,
   Clock,
   Sparkles,
   CheckCheck,
-  Filter,
 } from 'lucide-react';
 import { notificationsAPI } from '../../api/client';
 

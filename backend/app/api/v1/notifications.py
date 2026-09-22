@@ -3,7 +3,6 @@ OpsPilot AI — Notifications API Routes
 Tenant-scoped user notification inbox and status updates.
 """
 
-from typing import Optional
 from uuid import UUID
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy import desc, func, select, update
@@ -11,7 +10,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.deps import get_current_user
 from app.database import get_db
-from app.models.audit_log import Notification, NotificationType
+from app.models.audit_log import Notification
 from app.models.user import User
 
 router = APIRouter(prefix="/notifications", tags=["Notifications"])

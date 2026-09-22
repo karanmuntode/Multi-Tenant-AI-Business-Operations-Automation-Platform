@@ -5,7 +5,6 @@ Centralized settings via Pydantic BaseSettings with .env support.
 
 from functools import lru_cache
 from pydantic_settings import BaseSettings
-from pydantic import Field
 
 
 class Settings(BaseSettings):

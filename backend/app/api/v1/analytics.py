@@ -13,8 +13,8 @@ from app.api.deps import get_current_org_id, get_current_user
 from app.database import get_db
 from app.models.user import User
 from app.models.project import Project
-from app.models.task import Task, TaskStatus
-from app.models.incident import Incident, IncidentStatus, IncidentSeverity
+from app.models.task import Task
+from app.models.incident import Incident, IncidentStatus
 
 router = APIRouter(prefix="/analytics", tags=["Analytics"])
 

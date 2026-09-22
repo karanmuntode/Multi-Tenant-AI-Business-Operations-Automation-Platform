@@ -4,11 +4,9 @@ Coordinates specialized AI agents (Orchestrator, Data Agent, Knowledge Agent,
 Research Agent, Communication Agent) with Human-in-the-Loop approval safeguards.
 """
 
-import asyncio
-import json
 import logging
 import time
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
 from uuid import UUID
 
 from sqlalchemy import select
@@ -16,8 +14,6 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.approval import ApprovalActionType, ApprovalRequest, ApprovalRiskLevel, ApprovalStatus
 from app.models.incident import Incident, IncidentSeverity, IncidentStatus
-from app.models.task import Task
-from app.services.ai_service import ai_service
 
 logger = logging.getLogger(__name__)
 
