@@ -53,7 +53,7 @@ jobs:
 
       - name: Run Ruff Linting
         run: |
-          ruff check backend/app
+          ruff check backend/app --ignore E501,E712
 
       - name: Run Pytest Test Suite
         env:

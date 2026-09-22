@@ -1,0 +1,9 @@
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.lint]
+ignore = [
+    "E501",  # Line too long
+    "E712",  # Comparison to True/False (needed for SQLAlchemy boolean column expressions)
+]

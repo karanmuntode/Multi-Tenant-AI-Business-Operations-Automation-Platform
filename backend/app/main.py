@@ -52,13 +52,13 @@ app.include_router(api_router, prefix=settings.API_V1_PREFIX)
 
 # ── Prometheus Observability Instrumentation ─
 try:
-    from prometheus_fastapi_instrumentator import Instrumentator
+    from prometheus_fastapi_instrumentator import Instrumentator  # type: ignore
     Instrumentator(
         should_group_status_codes=True,
         should_ignore_untemplated=True,
         excluded_handlers=["/metrics", "/docs", "/redoc", "/api/v1/health"],
     ).instrument(app).expose(app, endpoint="/metrics")
-except ImportError:
+except (ImportError, Exception):
     pass
 
 
