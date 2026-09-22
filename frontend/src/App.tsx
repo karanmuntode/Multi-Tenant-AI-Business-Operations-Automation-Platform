@@ -20,6 +20,8 @@ import IncidentsPage from './features/incidents/IncidentsPage';
 import AuditLogsPage from './features/audit/AuditLogsPage';
 import NotificationsPage from './features/notifications/NotificationsPage';
 import ApprovalsPage from './features/approvals/ApprovalsPage';
+import AnalyticsPage from './features/analytics/AnalyticsPage';
+import WorkflowsPage from './features/workflows/WorkflowsPage';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -144,10 +146,8 @@ export default function App() {
             <Route path="/notifications" element={<NotificationsPage />} />
             <Route path="/audit-logs" element={<AuditLogsPage />} />
             <Route path="/approvals" element={<ApprovalsPage />} />
-
-            {/* Next Milestone Placeholders */}
-            <Route path="/analytics" element={<PlaceholderPage title="Analytics" subtitle="Deep insights into your operations" icon="📊" />} />
-            <Route path="/workflows" element={<PlaceholderPage title="Workflows" subtitle="Automate recurring operations" icon="⚡" />} />
+            <Route path="/analytics" element={<AnalyticsPage />} />
+            <Route path="/workflows" element={<WorkflowsPage />} />
           </Route>
 
           {/* Catch-all */}

@@ -50,6 +50,17 @@ app.add_middleware(
 # ── Mount API Routes ─────────────────────────
 app.include_router(api_router, prefix=settings.API_V1_PREFIX)
 
+# ── Prometheus Observability Instrumentation ─
+try:
+    from prometheus_fastapi_instrumentator import Instrumentator
+    Instrumentator(
+        should_group_status_codes=True,
+        should_ignore_untemplated=True,
+        excluded_handlers=["/metrics", "/docs", "/redoc", "/api/v1/health"],
+    ).instrument(app).expose(app, endpoint="/metrics")
+except ImportError:
+    pass
+
 
 @app.get("/")
 async def root():
