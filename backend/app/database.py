@@ -15,14 +15,18 @@ from app.config import get_settings
 settings = get_settings()
 
 # Async engine for FastAPI
-engine = create_async_engine(
-    settings.DATABASE_URL,
-    echo=settings.DEBUG,
-    pool_size=20,
-    max_overflow=10,
-    pool_pre_ping=True,
-    pool_recycle=3600,
-)
+is_sqlite = settings.DATABASE_URL.startswith("sqlite")
+
+engine_kwargs = {"echo": settings.DEBUG}
+if not is_sqlite:
+    engine_kwargs.update({
+        "pool_size": 20,
+        "max_overflow": 10,
+        "pool_pre_ping": True,
+        "pool_recycle": 3600,
+    })
+
+engine = create_async_engine(settings.DATABASE_URL, **engine_kwargs)
 
 # Session factory
 async_session_factory = async_sessionmaker(
