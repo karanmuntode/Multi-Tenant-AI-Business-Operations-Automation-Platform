@@ -110,6 +110,15 @@ export const analyticsAPI = {
   getDashboard: () => api.get('/analytics/dashboard'),
 };
 
+// ── AI Operations API ───────────────────────
+export const aiAPI = {
+  getStatus: () => api.get('/ai/status'),
+  triage: (data: { title: string; description: string; affected_system?: string }) =>
+    api.post('/ai/triage', data),
+  chat: (data: { message: string }) => api.post('/ai/chat', data),
+  decompose: (data: { goal: string }) => api.post('/ai/decompose', data),
+};
+
 // ── Health API ──────────────────────────────
 export const healthAPI = {
   check: () => api.get('/health'),
