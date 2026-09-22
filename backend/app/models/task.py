@@ -5,8 +5,7 @@ Tasks belong to a Project and are assigned to Users. Supports Kanban workflow.
 
 import enum
 
-from sqlalchemy import Column, Date, Enum, ForeignKey, Integer, String, Text
-from sqlalchemy.dialects.postgresql import JSONB, UUID
+from sqlalchemy import Column, Date, Enum, ForeignKey, Integer, JSON, String, Text, Uuid
 from sqlalchemy.orm import relationship
 
 from app.database import Base
@@ -44,13 +43,13 @@ class Task(Base, UUIDPrimaryKeyMixin, TimestampMixin, TenantMixin):
     )
     deadline = Column(Date, nullable=True)
     position = Column(Integer, default=0)  # Kanban ordering within a column
-    labels = Column(JSONB, default=list, server_default="[]")
+    labels = Column(JSON, default=list)
     estimated_hours = Column(Integer, nullable=True)
 
     # Foreign Keys
-    project_id = Column(UUID(as_uuid=True), ForeignKey("projects.id", ondelete="CASCADE"), nullable=False, index=True)
-    assignee_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=True, index=True)
-    created_by = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
+    project_id = Column(Uuid(as_uuid=True), ForeignKey("projects.id", ondelete="CASCADE"), nullable=False, index=True)
+    assignee_id = Column(Uuid(as_uuid=True), ForeignKey("users.id"), nullable=True, index=True)
+    created_by = Column(Uuid(as_uuid=True), ForeignKey("users.id"), nullable=False)
 
     # Relationships
     project = relationship("Project", back_populates="tasks")
@@ -66,8 +65,8 @@ class TaskComment(Base, UUIDPrimaryKeyMixin, TimestampMixin):
     __tablename__ = "task_comments"
 
     content = Column(Text, nullable=False)
-    task_id = Column(UUID(as_uuid=True), ForeignKey("tasks.id", ondelete="CASCADE"), nullable=False, index=True)
-    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
+    task_id = Column(Uuid(as_uuid=True), ForeignKey("tasks.id", ondelete="CASCADE"), nullable=False, index=True)
+    user_id = Column(Uuid(as_uuid=True), ForeignKey("users.id"), nullable=False)
 
     # Relationships
     task = relationship("Task", back_populates="comments")

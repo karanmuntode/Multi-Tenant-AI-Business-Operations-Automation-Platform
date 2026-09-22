@@ -5,8 +5,7 @@ Controls feature access per organization based on plan tier.
 
 import enum
 
-from sqlalchemy import Boolean, Column, DateTime, Enum, ForeignKey, Integer, String
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy import Boolean, Column, DateTime, Enum, ForeignKey, Integer, String, Uuid
 from sqlalchemy.orm import relationship
 
 from app.database import Base
@@ -55,7 +54,7 @@ class Subscription(Base, UUIDPrimaryKeyMixin, TimestampMixin):
     __tablename__ = "subscriptions"
 
     organization_id = Column(
-        UUID(as_uuid=True),
+        Uuid(as_uuid=True),
         ForeignKey("organizations.id", ondelete="CASCADE"),
         nullable=False,
         unique=True,

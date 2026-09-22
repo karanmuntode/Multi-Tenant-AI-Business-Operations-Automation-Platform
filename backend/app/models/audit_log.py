@@ -5,8 +5,7 @@ Enterprise audit trail and in-app notification system.
 
 import enum
 
-from sqlalchemy import Boolean, Column, Enum, ForeignKey, String, Text
-from sqlalchemy.dialects.postgresql import JSONB, UUID
+from sqlalchemy import Boolean, Column, Enum, ForeignKey, JSON, String, Text, Uuid
 from sqlalchemy.orm import relationship
 
 from app.database import Base
@@ -20,12 +19,12 @@ class AuditLog(Base, UUIDPrimaryKeyMixin, TimestampMixin, TenantMixin):
     """
     __tablename__ = "audit_logs"
 
-    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False, index=True)
+    user_id = Column(Uuid(as_uuid=True), ForeignKey("users.id"), nullable=False, index=True)
     action = Column(String(50), nullable=False, index=True)  # created, updated, deleted
     resource_type = Column(String(50), nullable=False, index=True)  # project, task, incident, etc.
-    resource_id = Column(UUID(as_uuid=True), nullable=False)
-    old_values = Column(JSONB, nullable=True)  # Previous state
-    new_values = Column(JSONB, nullable=True)  # New state
+    resource_id = Column(Uuid(as_uuid=True), nullable=False)
+    old_values = Column(JSON, nullable=True)  # Previous state
+    new_values = Column(JSON, nullable=True)  # New state
     ip_address = Column(String(45), nullable=True)
     user_agent = Column(Text, nullable=True)
 
@@ -49,7 +48,7 @@ class Notification(Base, UUIDPrimaryKeyMixin, TimestampMixin, TenantMixin):
     """In-app notification for users."""
     __tablename__ = "notifications"
 
-    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False, index=True)
+    user_id = Column(Uuid(as_uuid=True), ForeignKey("users.id"), nullable=False, index=True)
     title = Column(String(255), nullable=False)
     message = Column(Text, nullable=False)
     type = Column(
@@ -58,7 +57,7 @@ class Notification(Base, UUIDPrimaryKeyMixin, TimestampMixin, TenantMixin):
         nullable=False,
     )
     is_read = Column(Boolean, default=False, nullable=False)
-    extra_data = Column("extra_data", JSONB, default=dict, server_default="{}")
+    extra_data = Column("extra_data", JSON, default=dict)
 
     # Relationships
     user = relationship("User", back_populates="notifications")

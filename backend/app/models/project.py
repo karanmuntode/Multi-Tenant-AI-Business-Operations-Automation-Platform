@@ -5,8 +5,7 @@ Projects belong to an Organization and contain Tasks and Milestones.
 
 import enum
 
-from sqlalchemy import Column, Date, Enum, ForeignKey, Integer, String, Text
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy import Boolean, Column, Date, Enum, ForeignKey, Integer, String, Text, Uuid
 from sqlalchemy.orm import relationship
 
 from app.database import Base
@@ -36,7 +35,7 @@ class Project(Base, UUIDPrimaryKeyMixin, TimestampMixin, TenantMixin):
     priority = Column(Integer, default=0)
     color = Column(String(7), default="#6366F1")  # Hex color for UI
 
-    created_by = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
+    created_by = Column(Uuid(as_uuid=True), ForeignKey("users.id"), nullable=False)
 
     # Relationships
     organization = relationship("Organization", back_populates="projects")

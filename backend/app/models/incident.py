@@ -6,8 +6,7 @@ Incident tracking with automated SLA timers and breach detection.
 import enum
 from datetime import datetime, timezone
 
-from sqlalchemy import Boolean, Column, DateTime, Enum, ForeignKey, Integer, String, Text
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy import Boolean, Column, DateTime, Enum, ForeignKey, Integer, String, Text, Uuid
 from sqlalchemy.orm import relationship
 
 from app.database import Base
@@ -61,7 +60,7 @@ class Incident(Base, UUIDPrimaryKeyMixin, TimestampMixin, TenantMixin):
     )
 
     # SLA tracking
-    sla_policy_id = Column(UUID(as_uuid=True), ForeignKey("sla_policies.id"), nullable=True)
+    sla_policy_id = Column(Uuid(as_uuid=True), ForeignKey("sla_policies.id"), nullable=True)
     sla_response_due = Column(DateTime(timezone=True), nullable=True)
     sla_resolution_due = Column(DateTime(timezone=True), nullable=True)
     first_responded_at = Column(DateTime(timezone=True), nullable=True)
@@ -72,8 +71,8 @@ class Incident(Base, UUIDPrimaryKeyMixin, TimestampMixin, TenantMixin):
     resolution_notes = Column(Text, nullable=True)
 
     # Foreign Keys
-    reporter_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
-    assignee_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=True)
+    reporter_id = Column(Uuid(as_uuid=True), ForeignKey("users.id"), nullable=False)
+    assignee_id = Column(Uuid(as_uuid=True), ForeignKey("users.id"), nullable=True)
 
     # Relationships
     organization = relationship("Organization", back_populates="incidents")
@@ -90,8 +89,8 @@ class IncidentComment(Base, UUIDPrimaryKeyMixin, TimestampMixin):
     __tablename__ = "incident_comments"
 
     content = Column(Text, nullable=False)
-    incident_id = Column(UUID(as_uuid=True), ForeignKey("incidents.id", ondelete="CASCADE"), nullable=False, index=True)
-    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
+    incident_id = Column(Uuid(as_uuid=True), ForeignKey("incidents.id", ondelete="CASCADE"), nullable=False, index=True)
+    user_id = Column(Uuid(as_uuid=True), ForeignKey("users.id"), nullable=False)
 
     incident = relationship("Incident", back_populates="comments")
     user = relationship("User")

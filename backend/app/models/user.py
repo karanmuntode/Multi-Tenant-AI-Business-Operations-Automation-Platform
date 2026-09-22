@@ -5,8 +5,7 @@ Users belong to an Organization and have role-based access.
 
 import enum
 
-from sqlalchemy import Boolean, Column, DateTime, Enum, ForeignKey, String, Text
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy import Boolean, Column, DateTime, Enum, ForeignKey, String, Text, Uuid
 from sqlalchemy.orm import relationship
 
 from app.database import Base

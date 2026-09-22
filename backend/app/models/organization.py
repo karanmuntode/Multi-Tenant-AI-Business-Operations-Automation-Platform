@@ -3,8 +3,7 @@ OpsPilot AI — Organization Model
 The root entity for multi-tenancy. Every company is an Organization.
 """
 
-from sqlalchemy import Boolean, Column, String, Text
-from sqlalchemy.dialects.postgresql import JSONB, UUID
+from sqlalchemy import Boolean, Column, JSON, String, Text, Uuid
 from sqlalchemy.orm import relationship
 
 from app.database import Base
@@ -19,8 +18,7 @@ class Organization(Base, UUIDPrimaryKeyMixin, TimestampMixin):
     domain = Column(String(255), nullable=True)
     logo_url = Column(Text, nullable=True)
     industry = Column(String(100), nullable=True)
-    size = Column(String(50), nullable=True)  # e.g., "1-10", "11-50", "51-200"
-    settings = Column(JSONB, default=dict, server_default="{}")
+    settings = Column(JSON, default=dict)
     is_active = Column(Boolean, default=True, nullable=False)
 
     # Relationships

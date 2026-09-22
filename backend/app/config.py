@@ -64,9 +64,10 @@ class Settings(BaseSettings):
     RATE_LIMIT_PER_MINUTE: int = 60
 
     model_config = {
-        "env_file": ".env",
+        "env_file": [".env", "../.env"],
         "env_file_encoding": "utf-8",
         "case_sensitive": True,
+        "extra": "ignore",
     }
 
     @property
