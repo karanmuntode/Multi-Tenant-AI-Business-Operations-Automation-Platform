@@ -58,7 +58,7 @@ class Notification(Base, UUIDPrimaryKeyMixin, TimestampMixin, TenantMixin):
         nullable=False,
     )
     is_read = Column(Boolean, default=False, nullable=False)
-    metadata = Column(JSONB, default=dict, server_default="{}")
+    extra_data = Column("extra_data", JSONB, default=dict, server_default="{}")
 
     # Relationships
     user = relationship("User", back_populates="notifications")
