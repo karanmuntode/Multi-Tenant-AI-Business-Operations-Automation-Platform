@@ -325,29 +325,37 @@ a:hover {
   letter-spacing: 0.01em;
 }
 
-.input {
-  padding: 10px 14px;
-  background: var(--bg-input);
-  border: 1px solid var(--border-default);
+.input,
+.input-field {
+  width: 100%;
+  padding: 11px 14px;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(51, 65, 85, 0.8);
   border-radius: var(--radius-md);
-  color: var(--text-primary);
+  color: #f8fafc;
   font-family: var(--font-sans);
   font-size: 14px;
+  line-height: 1.5;
   transition: all var(--transition-fast);
   outline: none;
+  box-sizing: border-box;
 }
 
-.input::placeholder {
-  color: var(--text-tertiary);
+.input::placeholder,
+.input-field::placeholder {
+  color: #64748b;
 }
 
-.input:focus {
-  border-color: var(--primary-500);
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+.input:focus,
+.input-field:focus {
+  border-color: #6366f1;
+  background: rgba(15, 23, 42, 0.9);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
 }
 
-.input:hover:not(:focus) {
-  border-color: var(--border-primary);
+.input:hover:not(:focus),
+.input-field:hover:not(:focus) {
+  border-color: #475569;
 }
 
 .input-error {

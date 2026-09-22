@@ -119,6 +119,28 @@ export const aiAPI = {
   decompose: (data: { goal: string }) => api.post('/ai/decompose', data),
 };
 
+// ── Incidents API ───────────────────────────
+export const incidentsAPI = {
+  list: (params?: { status?: string; severity?: string; page?: number; per_page?: number }) =>
+    api.get('/incidents', { params }),
+  create: (data: { title: string; description?: string; severity: string; category?: string }) =>
+    api.post('/incidents', data),
+  update: (id: string, data: Record<string, unknown>) =>
+    api.patch(`/incidents/${id}`, data),
+};
+
+// ── Projects & Tasks API ────────────────────
+export const projectsAPI = {
+  list: () => api.get('/projects'),
+  create: (data: { name: string; description?: string; color?: string }) =>
+    api.post('/projects', data),
+  getTasks: (projectId: string) => api.get(`/projects/${projectId}/tasks`),
+  createTask: (projectId: string, data: { title: string; description?: string; priority?: string; status?: string; estimated_hours?: number }) =>
+    api.post(`/projects/${projectId}/tasks`, data),
+  updateTaskStatus: (taskId: string, status: string) =>
+    api.patch(`/projects/tasks/${taskId}/status`, { status }),
+};
+
 // ── Health API ──────────────────────────────
 export const healthAPI = {
   check: () => api.get('/health'),
